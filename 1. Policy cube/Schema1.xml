@@ -1,0 +1,74 @@
+<Schema name="Test_Project_Policies">
+  <Dimension type="StandardDimension" visible="true" name="Global_Units">
+    <Hierarchy name="Global_Units" visible="true" hasAll="true" primaryKey="id">
+      <Table name="global_units" alias="">
+      </Table>
+      <Level name="ID_Global_Units" visible="true" column="id" nameColumn="name" type="Integer" uniqueMembers="false" levelType="Regular">
+      </Level>
+      <Level name="smo_code" visible="true" column="smo_code" type="String" uniqueMembers="false" levelType="Regular">
+      </Level>
+      <Level name="acronym" visible="true" column="acronym" type="String" uniqueMembers="false" levelType="Regular">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Project_Policies">
+    <Hierarchy name="New Hierarchy 0" visible="true" hasAll="true">
+      <Table name="project_policies" alias="">
+      </Table>
+      <Level name="Project_Policies" visible="true" column="id" type="Numeric" uniqueMembers="false" levelType="Regular">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Rep_ind_geographic_scopes">
+    <Hierarchy name="H_Rep_ind_geographic_scopes" visible="true" hasAll="true">
+      <Table name="view_project_policies_geographic_scopes" alias="">
+      </Table>
+      <Level name="L_Rep_Ind_geographic_scopes_name" visible="true" column="rep_ind_geo_scopes_id" nameColumn="name" type="Integer" uniqueMembers="false" levelType="Regular">
+      </Level>
+      <Level name="L_Rep_Ind_geographic_scopes_definition" visible="true" column="definition" type="String" uniqueMembers="false" levelType="Regular">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="D_srf_sub_idos">
+    <Hierarchy name="H_srf_sub_idos" visible="true" hasAll="true">
+      <Table name="view_srf_sub_idos" alias="">
+      </Table>
+      <Level name="Description" visible="true" column="srf_sub_idos_id" nameColumn="description" type="Integer" uniqueMembers="false" levelType="Regular">
+      </Level>
+      <Level name="Ido_id" visible="true" column="ido_id" type="Integer" uniqueMembers="false" levelType="Regular">
+      </Level>
+      <Level name="smo_Code" visible="true" column="smo_code" type="Integer" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="Loc_Elements">
+    <Hierarchy name="H_loc_elements" visible="true" hasAll="true">
+      <Table name="view_loc_elements" alias="">
+      </Table>
+      <Level name="Name" visible="true" column="loc_elements_id" nameColumn="name" type="Integer" uniqueMembers="false" levelType="Regular">
+      </Level>
+      <Level name="iso_alpha_2" visible="true" column="iso_alpha_2" type="String" uniqueMembers="false" levelType="Regular">
+      </Level>
+      <Level name="Iso_numeric" visible="true" column="iso_numeric" type="Integer" uniqueMembers="false" levelType="Regular">
+      </Level>
+      <Level name="Parent" visible="true" column="parent_id" type="Integer" uniqueMembers="false" levelType="Regular">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="Cubo" visible="true" cache="true" enabled="true">
+    <Table name="project_policy_info" alias="">
+    </Table>
+    <DimensionUsage source="Global_Units" name="d_globalUnits" visible="true" foreignKey="global_unit_id">
+    </DimensionUsage>
+    <DimensionUsage source="Project_Policies" name="D_project_policies" visible="true" foreignKey="project_policy_id">
+    </DimensionUsage>
+    <DimensionUsage source="Rep_ind_geographic_scopes" name="Rep_Ind_geo_scopes" visible="true" foreignKey="rep_ind_geographic_scope_id">
+    </DimensionUsage>
+    <DimensionUsage source="D_srf_sub_idos" name="D_srf_sub_idos" visible="true" foreignKey="project_policy_id">
+    </DimensionUsage>
+    <DimensionUsage source="Loc_Elements" name="D_Loc_elements" visible="true" foreignKey="project_policy_id">
+    </DimensionUsage>
+    <Measure name="Proyectos" column="project_policy_id" datatype="Integer" aggregator="distinct-count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
